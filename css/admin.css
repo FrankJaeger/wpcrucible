@@ -1,0 +1,14 @@
+.wpcr-admin-title {
+	display: table;
+}
+
+.wpcr-admin-logo {
+	display: table-cell;
+	padding: 0.5rem;
+	vertical-align: middle;
+}
+
+.wpcr-admin-title_text {
+	display: table-cell;
+	vertical-align: middle;
+}
