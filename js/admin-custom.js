@@ -29,3 +29,26 @@
  	/* Uploader end */
 
  });
+
+ jQuery( function( $ ) {
+
+ 	/* Page Sidebar Metabox Support */
+
+ 	var selected,
+    metabox = $( '#wpcr-admin-page-metabox-sidebar' ),	// Metabox object.
+    template_selector = $( '#page_template' );			// Template select object.
+  
+	( template_selector.val() == 'page-sidebar.php' ) ? metabox.show() : metabox.hide();  // Show or Hide metabox at page loads.
+  
+  	$( template_selector ).on( 'change', function() {	// On change check if selected template is "Sidebar" and show metabox when is and hide when is no.
+    	selected = $(this).val();
+    
+    	if ( selected == 'page-sidebar.php' ) {
+    		metabox.show( 500 );
+		} else {
+			metabox.hide( 500 );
+		}
+  	});
+
+  	/* Metabox End */
+});

@@ -4,10 +4,6 @@ class fpwpcr_theme {
 
 	protected static $config = array();
 
-	public function __construct() {
-		load_theme_textdomain( 'wpcrucible', get_template_directory_uri() . 'locale' );
-	}
-
 	public function add_menu( $slug, $name ) {		// Adding new menu area in WordPress.
 		self::$config['menus'][$slug] = $name;		// Example: $theme->add_menu( 'menu-1', 'Main Menu' ); 
 	} 
@@ -33,6 +29,7 @@ class fpwpcr_theme {
 	}
 
 	public function init_callback() {
+		load_theme_textdomain( 'wpcrucible', get_template_directory_uri() . '/locale' ); 		// Load translations textdomain.
 		register_nav_menu( 'wpcr-main-main-menu', __( 'Primary Header Menu', 'wpcrucible' ) );		// Register primary header menu.												
 		if ( array_key_exists( 'menus', self::$config ) ) {									// When at least one menu is added.
 			register_nav_menus( self::$config['menus'] );									// register them.
@@ -492,6 +489,82 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 						<p>' . $error . '</p>
 					 </div>'
 					 );
+			}
+		}
+	}
+
+
+}
+
+
+
+
+class fpwpcr_metaboxes {
+	private $sb_count;
+	private $fields_to_save = array(
+			'wpcr-admin-page-metabox-sidebar' => array(
+				'wpcr-admin-page-metabox-sidebar-number'
+				)
+			);
+
+	public function __construct( $sidebars ) {
+		$this->sb_count = $sidebars;
+		add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );	// Adds the metaboxes.
+		add_action( 'save_post', array( &$this, 'save_metaboxes' ) );
+	}
+
+	public function add_metaboxes() {
+		$metaboxes = array(									// Array of metaboxes and its configurations.
+			'wpcr-admin-page-metabox-sidebar' => array(
+				__( 'Sidebar' ),
+				function( $post ) {							// Metabox Callback.
+					$select_items = '';
+					$selected_item = get_post_meta( $post->ID, 'wpcr-admin-page-metabox-sidebar-number', true );	// Get actual value if exists.
+					wp_nonce_field( 'wpcr-admin-page-metabox-sidebar', 'wpcr-admin-page-metabox-sidebar-nonce' );	// Adds nonce ( it must be defined! ).
+
+					for ( $i = 1 ; $i <= $this->sb_count ; $i++ ) {													// Print the select options depends on sidebars count.
+						$select_items .= sprintf('<option %s value="%d">' . __( 'Sidebar %d' ) . '</option>',
+							( $selected_item == $i ) ? 'selected' : '',												// Adds selected attribute if values of item and stored in database match each other.
+							$i, 
+							$i
+							);
+					}
+					printf('<select id="wpcr-admin-page-metabox-sidebar-number" name="wpcr-admin-page-metabox-sidebar-number" class="wpcr-admin-page-metabox-sidebar-select wpcr-admin-page-metabox-sidebar-select-%1$s wpcr-admin-page-metabox-sidebar-select-js">%2$s</select>',
+						$post->ID,
+						$select_items
+						);
+				},
+				'page',
+				'side',
+				'default',
+				null
+				)
+			);
+
+		foreach( $metaboxes as $metabox_id => $metabox ) {
+			add_meta_box( $metabox_id, $metabox[0], $metabox[1], $metabox[2], $metabox[3], $metabox[4], $metabox[5] );
+		}		
+	}
+
+	public function save_metaboxes( $post_id ) {
+		foreach ( $this->fields_to_save as $metabox => $fields ) {			
+			if ( !isset( $_POST[$metabox.'-nonce'] ) )		// Check that nonce is set, exit if no.
+				return $post_id;
+	
+			$nonce = $_POST[$metabox.'-nonce'];
+	
+			if ( !wp_verify_nonce( $nonce, $metabox ) )	// Is nonce valid ? Exit when no.
+				return $post_id;
+	
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )					// If it's autosave, exit.
+				return $post_id;
+	
+			if ( !current_user_can( 'edit_page', $post_id ) )						// Check if user have permissions to save, exit when no.
+				return $post_id;
+
+			foreach ( $fields as $field ) {
+				$data = sanitize_text_field( $_POST[$field] );						// Sanitize data.
+				update_post_meta( $post_id, $field, $data ); 						// Update data in database.
 			}
 		}
 	}

@@ -30,12 +30,14 @@ $fpwpcr_settings->make_my_settings();	// Draw the sections, fields and add defau
 
 /* *** Theme Content *** */
 
-$fpwpcr_theme->add_sidebars( $fpwpcr_settings->get_value( 'wpcr-content-sidebars' ) );		// Adds as many sidebars as configured in options page.
+$fpwpcr_theme->add_sidebars( (int)$fpwpcr_settings->get_value( 'wpcr-content-sidebars' ) );		// Adds as many sidebars as configured in options page.
 
 for ( $i = 0 ; $i < $fpwpcr_settings->get_value( 'wpcr-content-menus' ) ; $i++ ) {
 	$fpwpcr_theme->add_menu( 'wpcr-content-custom-menu-' . $i, __( 'Custom Menu #', 'wpcrucible' ) . ($i+1) );	// Adds as many menus as configured in options page.
 }
 
 $fpwpcr_theme->init(); // Make the things that are configured in theme class, like adding sidebars and menus.
+
+$fpwpcr_metaboxes = new fpwpcr_metaboxes( (int)$fpwpcr_settings->get_value( 'wpcr-content-sidebars' ) );	// Create sidebar metabox at post( page ) edit page and pass number of created sidebars.
 
 ?>
