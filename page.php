@@ -1,5 +1,5 @@
 <?php
+get_header();
 
-dynamic_sidebar(2);
-_e( 'Sidebar' );
+get_footer();
 ?>

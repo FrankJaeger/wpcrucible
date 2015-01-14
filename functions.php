@@ -17,9 +17,11 @@ $fpwpcr_settings->add_section( __( 'Content', 'wpcrucible' ), 'wpcr-admin-conten
 $fpwpcr_settings->add_upload( __( 'Header Logo', 'wpcrucible' ), 'wpcr-header-logo', 'wpcr-admin-appearance-section', null, $fpwpcr_dir . '/images/logo.png' );		 		// Header logo upload field.
 $fpwpcr_settings->add_upload( __( 'Footer Logo', 'wpcrucible' ), 'wpcr-footer-logo', 'wpcr-admin-appearance-section', null, $fpwpcr_dir . '/images/footer-logo.jpg' ); 	 		// Footer logo upload.
 $fpwpcr_settings->add_upload( __( 'Hero Image', 'wpcrucible' ), 'wpcr-header-hero-image', 'wpcr-admin-appearance-section', null, $fpwpcr_dir . '/images/home-hero.jpg' ); 		// Hero image upload.
+$fpwpcr_settings->add_color( __( 'Header Top Background', 'wpcrucible'), 'wpcr-main-top-header-bg-color', 'wpcr-admin-appearance-section', null, '#f0f0f0' );	// Menu and logo background
 $fpwpcr_settings->add_color( __( 'Backgroung Color', 'wpcrucible' ), 'wpcr-main-background-color', 'wpcr-admin-appearance-section', null, '#ffffff' ); 	// BG color picker.
 $fpwpcr_settings->add_color( __( 'Theme\'s Main Color', 'wpcrucible' ), 'wpcr-main-color', 'wpcr-admin-appearance-section', null, '#cd261e' ); 		// Change main color of theme.
-$fpwpcr_settings->add_checkbox( __( 'Parallax Effect', 'wpcrucible' ), 'wpcr-main-parallax', 'wpcr-admin-appearance-section', null, 1 ); 	// Use parallax ?
+$fpwpcr_settings->add_checkbox( __( 'Parallax Effect', 'wpcrucible' ), 'wpcr-main-parallax', 'wpcr-admin-appearance-section', null, 0 ); 	// Use parallax ?
+$fpwpcr_settings->add_checkbox( __( 'B/W Header Image', 'wpcrucible' ), 'wpcr-main-bw', 'wpcr-admin-appearance-section', null, 0 ); 	//  Black/white header image ?
  $fpwpcr_settings->add_textarea( __( 'Custom CSS', 'wpcrucible' ), 'wpcr-main-css', 'wpcr-admin-appearance-section', null, '' );				// Place for custom CSS.
 
 // //Content
@@ -35,6 +37,9 @@ $fpwpcr_theme->add_sidebars( (int)$fpwpcr_settings->get_value( 'wpcr-content-sid
 for ( $i = 0 ; $i < $fpwpcr_settings->get_value( 'wpcr-content-menus' ) ; $i++ ) {
 	$fpwpcr_theme->add_menu( 'wpcr-content-custom-menu-' . $i, __( 'Custom Menu #', 'wpcrucible' ) . ($i+1) );	// Adds as many menus as configured in options page.
 }
+
+$fpwpcr_theme->add_styles_and_scripts();	// Enqueue required scripts.
+$fpwpcr_theme->add_filters();				// Adds required filters.
 
 $fpwpcr_theme->init(); // Make the things that are configured in theme class, like adding sidebars and menus.
 

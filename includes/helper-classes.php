@@ -8,7 +8,6 @@ class fpwpcr_theme {
 		self::$config['menus'][$slug] = $name;		// Example: $theme->add_menu( 'menu-1', 'Main Menu' ); 
 	} 
 
-
 	public function add_sidebars( $count = 1, $name = false, $class = false ) {		// Adding new sidebar area(s) in WordPress Widgets menu. No args required. Default creates one sidebar.
 																					// Example: $theme->add_sidebars(2, 'My Sidebar %d', 'custom-sidebar');
 		$args = array(																
@@ -20,13 +19,25 @@ class fpwpcr_theme {
 		if ($class) $args['class'] = $class;
 
 		self::$config['sidebars'][] = array( 'count' => $count, 'args' => $args );	// Gets provided args and passing it to the $config.
-
 	}
 
+	public function add_styles_and_scripts() {
+		add_action( 'wp_enqueue_scripts', array( &$this, 'add_styles_and_scripts_callback' ) );
+	}
 
 	public function init() {									// Make full theme initialization, based on provided configuration.
 		add_action( 'after_setup_theme', array( &$this, 'init_callback' ) );
 	}
+
+	public function add_filters() {
+		add_filter( 'wp_title', function( $title ) {
+			if ( empty( $title ) && ( is_home() || is_front_page() ) ) {
+				return get_bloginfo( 'name' ) . ' | ' . get_bloginfo( 'description' );
+			}
+			return $title;
+		});
+	}
+
 
 	public function init_callback() {
 		load_theme_textdomain( 'wpcrucible', get_template_directory_uri() . '/locale' ); 		// Load translations textdomain.
@@ -40,7 +51,16 @@ class fpwpcr_theme {
 				register_sidebars( $sidebars['count'], $sidebars['args'] );		// register it.
 			}
 		}
+
+		add_theme_support('post-thumbnails'); 	// Add thumbnails support.
 	}
+
+	public function add_styles_and_scripts_callback() { 
+		global $fpwpcr_dir;
+		wp_enqueue_style( 'wpcr-style', get_stylesheet_uri() );
+		wp_enqueue_style( 'font-awesome', $fpwpcr_dir . '/css/font-awesome.min.css' );
+	}
+
 
 
 	protected final function is_in_array( $value, $array, $strict = false ) {		// Helper function to search in multidimensional arrays.
@@ -109,7 +129,60 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		add_action( 'admin_notices', array(&$this, 'admin_notices_callback' ) ); 	// Adds support for notice and error messages.
 	}
 
+	public function get_hero_image_css() {		// Gets the hero image background css in priority: Featured Image > Theme Options (if home) > CSS.
+		$theme_options_hero_url = $this->get_value( 'wpcr-header-hero-image' );
+		$featured_image_uri = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'full' );
 
+		if ( $featured_image_uri[0] == '' ) {
+			if ( ( $theme_options_hero_url != '' ) && is_front_page() ) {
+				$url = $theme_options_hero_url; 
+			} else {
+				return '';
+			} 
+		} else {
+				$url = $featured_image_uri[0];
+			}
+
+		if ( $url != '' ) {
+			return sprintf('%2$s.hero-image_background { background-image: url(\'%1$s\'); filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'%1$s\',sizingMethod=\'scale\');}',
+					esc_url( $url ),
+					( is_front_page() ) ? '.home ' : ''
+					);
+		}
+	}
+
+	public function get_main_color_css() {		// Return css to change site main color.
+		$color = $this->get_value( 'wpcr-main-color' );
+		if ( !empty( $color ) && ( $color != '#cd261e' ) ) {
+			return sprintf('.content-title, .list-marker, .mid-red-button, .big-red-button, .current_page_item a, a:hover, .hero-image_content-title {color: %1$s !important;}.hr-underline {background: %1$s;color: %1$s;}.header-top_menu .current_page_item {border-bottom: 0.20rem solid %1$s;}.hero-image_content-title_white,.home .hero-image_content-title {color: #fff !important;}',
+				esc_html($color));
+		}
+	}
+
+	public function get_parallax_css() {
+		$parallax = $this->get_value( 'wpcr-main-parallax' );
+		return ( $parallax ) ? '' : '.hero-image_background{background-attachment: scroll;}';
+	}
+
+	public function get_bnw_css() {
+		$bnw = $this->get_value( 'wpcr-main-bw' );
+		return ( $bnw ) ? '' : '.hero-image_background{filter: none;}';
+	}
+
+	public function get_background_css() {
+		$bg = $this->get_value( 'wpcr-main-background-color' );
+		return ( empty($bg) ) ? '' : 'body{background: '.esc_html($bg).';}';
+	}
+
+	public function get_header_top_css() {
+		$header_bg = $this->get_value( 'wpcr-main-top-header-bg-color' );
+		return empty( $header_bg ) ? '' : '.header-top{background: ' . $header_bg . ';}';
+	}
+
+	public function get_the_user_css() {
+		$css = $this->get_hero_image_css() . $this->get_main_color_css() . $this->get_main_color_css() . $this->get_parallax_css() . $this->get_background_css() . $this->get_header_top_css() . $this->get_bnw_css() . esc_html( $this->get_value( 'wpcr-main-css' ) );
+		return $css;
+	}
 
 
 
@@ -504,6 +577,10 @@ class fpwpcr_metaboxes {
 	private $fields_to_save = array(
 			'wpcr-admin-page-metabox-sidebar' => array(
 				'wpcr-admin-page-metabox-sidebar-number'
+				),
+			'wpcr-admin-page-metabox-header' => array(
+				'wpcr-admin-page-metabox-header-title',
+				'wpcr-admin-page-metabox-header-subtitle'
 				)
 			);
 
@@ -537,6 +614,40 @@ class fpwpcr_metaboxes {
 				'page',
 				'side',
 				'default',
+				null
+				),
+			'wpcr-admin-page-metabox-header' => array(
+				__( 'Header Content', 'wpcrucible' ),
+				function( $post ) {
+					wp_nonce_field( 'wpcr-admin-page-metabox-header', 'wpcr-admin-page-metabox-header-nonce' );
+					printf('<table class="wpcr-admin-page-metabox-header-metabox">
+								<tr>
+									<td class="wpcr-admin-page-metabox-header-cl">
+										<label for="wpcr-admin-page-metabox-header-title">%3$s</label>
+									</td>
+									<td class="wpcr-admin-page-metabox-header-cr">
+										<input type="text" id="wpcr-admin-page-metabox-header-title" name="wpcr-admin-page-metabox-header-title" class="wpcr-admin-page-metabox-header-textfield wpcr-admin-page-metabox-header-textfield-%1$s" value="%2$s" />
+									</td>
+								</tr>
+								<tr>
+									<td class="wpcr-admin-page-metabox-header-cl">
+										<label for="wpcr-admin-page-metabox-header-subtitle">%4$s</label>
+									</td>
+									<td class="wpcr-admin-page-metabox-header-cr">
+										<input type="text" id="wpcr-admin-page-metabox-header-subtitle" name="wpcr-admin-page-metabox-header-subtitle" class="wpcr-admin-page-metabox-header-textfield wpcr-admin-page-metabox-header-textfield-%1$s" value="%5$s" />
+									</td>
+								</tr>
+							</table>',
+						$post->ID,
+						esc_attr( get_post_meta( $post->ID, 'wpcr-admin-page-metabox-header-title', true ) ),
+						__( 'Header Title', 'wpcrucible' ),
+						__( 'Header Subtitle', 'wpcrucible' ),
+						esc_attr( get_post_meta( $post->ID, 'wpcr-admin-page-metabox-header-subtitle', true ) )
+						);
+				},
+				'page',
+				'normal',
+				'high',
 				null
 				)
 			);

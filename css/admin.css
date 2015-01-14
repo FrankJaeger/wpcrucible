@@ -4,6 +4,18 @@
 	vertical-align: middle;
 }
 
+.wpcr-admin-page-metabox-header-cl {
+	width: 15%;
+}
+
+.wpcr-admin-page-metabox-header-cr {
+	width: 40rem;
+}
+
+.wpcr-admin-page-metabox-header-cr input {
+	width: 100%;
+}
+
 .wpcr-admin-textarea {
 	height: 12rem;
 	width: 30rem;
@@ -19,11 +31,11 @@
 }
 
 .wpcr-admin-upload_button {
-    background: #cd261e;
-    color: #fff;
+    background: #fefefe;
+    /*color: #fff;*/
     cursor: pointer;
     font-size: 0.8rem;
-    padding: 0.4rem 0.5rem;
+    padding: 0.3rem 0.4rem;
 }
 
 .wpcr-save-button {

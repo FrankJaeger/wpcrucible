@@ -10,3 +10,514 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: corporate, red, clean, simple, fullwidth, business
 Text Domain: wpcrucible
 */
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,300,500,700);
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome-webfont.eot?v=4.2.0');
+  src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), 
+  	   url('fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), 
+  	   url('fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), 
+  	   url('fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+	display: table;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+html {
+	font-size: 20px;
+}
+
+/* I. Header */
+
+.header {
+	font-family: "Raleway", sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+	/* 1. Header Top Area */
+
+.header-top {
+	background: #f0f0f0;
+	height: 5.70rem;
+	width: 100%;
+}
+
+		/* a) Header Top Menu */
+.header-top_menu {
+	display: inline-block;
+	font-size: 0.7rem;
+	height: 100%;
+	vertical-align: top;
+}
+
+.header-top_menu .current_page_item {
+	border-bottom: 0.20rem solid #cd261e;
+	padding: 0.20rem 0.50rem 0 0.50rem;
+}
+		/* b) Header Top Logo */
+.header-top_logo {
+	display: inline-block;
+	height: 100%;
+	margin: 0 10.75rem 0 0;
+	vertical-align: top;
+}
+
+/* II. Logo */
+
+.logo-image {
+	height: 4.5rem;
+	vertical-align: middle;
+}
+
+/* III. Menu */
+
+.current_page_item a, a:hover {
+	color: #cd261e !important;
+}
+
+.menu-item {
+	display: table-cell;
+	height: 100%;
+	padding: 0 0.5rem;
+	vertical-align: middle;
+}
+
+.menu-item a {
+	color: #1f1a17;
+	text-decoration: none;
+}
+
+.menu-items {
+	display: table;
+	list-style: none;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* IV. Hero Image */
+
+.hero-image {
+	display: inline-block;
+	height: 10rem;
+	position: relative;
+	width: 100%;
+}
+
+.hero-image_background {
+	background: #ecf0e7 center center no-repeat fixed;
+	background-size: cover;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+	filter: url('css/filters.svg#grayscale');
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */ 
+	z-index: 0;
+}
+
+.hero-image_content {
+	color: #fff;
+	display: inline-block;
+	line-height: 1;
+	position: relative;
+	vertical-align: middle;
+	z-index: 3;
+}
+
+.home .hero-image_content {
+	display: inline-block;
+}
+
+.hero-image_content-arrow {
+	display: none;
+}
+
+.home .hero-image_content-arrow {
+	color: #fff;
+	display: block;
+	font-family: "FontAwesome";
+	font-size: 1.8rem;
+	position: relative;
+	text-decoration: none;
+	top: 11.5rem;
+}
+
+.hero-image_content-title {
+	color: #cd261e;
+	font-size: 2.4rem;
+	font-weight: 500;
+	margin: 0.8rem 0;
+}
+
+
+
+.hero-image_content-title_white, .home .hero-image_content-title {
+	color: #fff !important;
+}
+
+.hero-image_content-subtitle {
+	font-size: 1.8rem;
+	font-weight: 300;
+	margin: 0.8rem 0;
+}
+
+.hero-image_content-underline {
+	display: none;
+}
+
+.home .hero-image_content-underline {
+	display: block;
+	height: 0.15rem;
+	position: relative;
+	top: 4rem;
+	width: 13rem;
+}
+
+.hero-image_overlay {
+	left: 0;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.hero-image_overlay-bottom {
+	background: #000;
+	opacity: 0.62;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=62)";
+	filter: alpha(opacity=62);
+	-moz-opacity: 0.62;
+	-khtml-opacity: 0.62;
+	z-index: 1;
+}
+
+.hero-image_overlay-top {
+	background: #e1e1e1;
+	opacity: 0.4;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=62)";
+	filter: alpha(opacity=40);
+	-moz-opacity: 0.4;
+	-khtml-opacity: 0.4;
+	z-index: 2;
+}
+	
+	/* 1. Home Hero Image */
+
+.home .hero-image {
+	height: 38.25rem;
+}
+
+.hero-image_background {
+	background-image: url('images/compass-page-bg.jpg');
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/compass-page-bg.jpg',sizingMethod='scale');
+}
+
+.home .hero-image_background {
+	background-image: url('images/home-hero.jpg');
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/home-hero.jpg',sizingMethod='scale');
+}
+
+/* V. Content */
+
+.container {
+	font-family: "Raleway", sans-serif;
+	margin: 0 auto;
+}
+
+.content-custom_title {
+	font-size: 1.5rem;
+}
+
+.content-description {
+	color: #1f1a17;
+	font-size: 1.8rem;
+	font-weight: 500;
+	margin: 0.625rem 0;
+	text-transform: uppercase;
+}
+
+.content-description_text {
+	padding: 0;
+	margin: 0;
+}
+
+.content-description_underline {
+	height: 0.2rem;
+	margin: 1.5rem 0;
+	width: 5.75rem;
+}
+
+.content-limiter {
+	height: 100%;
+	margin: 0 auto;
+	width: 65rem;
+	display: inherit;
+}
+
+.content-limiter_custom-compass {
+	height: 30.5rem;
+}
+
+.content-text {
+	font-size: 0.9rem;
+	font-weight: 300;
+	line-height: 2;
+	padding: 0.4rem 0.5rem;
+}
+
+.content-title {
+	color: #cd261e;
+	font-size: 1.2rem;
+	font-weight: 500;
+	margin: 0 0 0.625rem 0;
+	text-transform: uppercase;
+}
+
+.content-title_text {
+	padding: 0;
+	margin: 0;
+}
+
+/* VI. Sections */
+
+.sections {
+	display: table;
+	margin: 0 auto;
+	width: 65rem;
+}
+
+.sections-block {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.sections-block_custom-compass {
+	height: 30.5rem;
+}
+
+.section-custom_compass {
+	background: url('images/compass-bg.jpg') center center no-repeat #fff;
+	background-size: cover;
+	height: 30.5rem;
+	width: 100%;
+}
+
+.section-custom_core {
+	background: url('images/core-bg.jpg') center center no-repeat #fff;
+	background-size: cover;
+	height: 30.5rem;
+	width: 100%;
+}
+
+.section-lsb_content {
+	padding: 0 0 0 4rem;
+	width: 80%;
+	height:10rem;
+}
+
+.section-lsb_sidebar {
+	position: relative;
+	width: 20%;
+}
+
+.section-lsb_sidebar-border {
+	border-right: 1px solid #d1d2d4;
+	height: 80%;
+	left: 0;
+	max-height: 30rem;
+	position: absolute;
+	top: 0;
+	width: 100%;
+
+}
+
+.section-title {
+	height: 11rem;
+	position: relative;
+	text-align: center;
+	width: 100%;
+}
+
+.section-title_custom-contact {
+	background: #f1f1f1;
+	height: 20rem;
+}
+
+.section-title_shadow {
+	background: url('images/upper-shadow.png') center center no-repeat;
+	background-size: cover;
+	height: 2.2rem;
+	left: 0;
+	margin-top: -2.2rem;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.section-title_full {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	z-index: 2;
+}
+
+.section-title_text {
+	font-size: 1.8rem;
+	font-weight: 500;
+	margin: 0 0 1.5rem 0;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.section-title_underline {
+	height: 0.2rem;
+	margin: 0 auto;
+	width: 5.75rem;
+}
+
+.section-title_underline-custom_contact {
+	margin-bottom: 4.5rem;
+}
+
+.sections-block_hpadded {
+	padding-left: 1.3rem;
+	padding-right: 1.3rem;
+}
+
+.sections-block_vcentered {
+	vertical-align: middle;
+}
+
+.sections-block_vpadded {
+	padding-top: 1.3rem;
+	padding-bottom: 1.3rem;
+}
+
+.section-hbh_left {
+	width: 50%;
+}
+
+.section-hbh_right {
+	width: 50%;
+}
+
+.section-tt_custom-footer {
+	height: 9rem;
+}
+
+.section-tt_left {
+	width: 71%;
+}
+
+.section-tt_right {
+	width: 29%;
+}
+
+.sidebar-menu {
+	font-size: 0.9rem;
+	font-weight: 300;
+	line-height: 2;
+}
+
+.sidebar-menu .menu-item {
+	display: block;
+}
+
+/* VII. Footer */
+
+.footer {
+	background: #4c4c4e;
+	color: #6c6c6d;
+	font-family: "Raleway", sans-serif;
+	height: 12rem;
+}
+
+.footer a {
+	color: #6c6c6d;
+	text-decoration: none;
+}
+
+.footer .current_page_item a {
+	color: #6c6c6d !important;
+}
+
+.footer-menu {
+	font-size: 0.8rem;
+	text-transform: uppercase;
+}
+
+/* VIII. Helpers */
+
+.clear {
+	clear: both;
+}
+
+.gapper {
+	clear: both;
+	height: 4.5rem;
+}
+
+.vertical-helper {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.hr-underline {
+	background: #cd261e;
+	border: 0;
+	color: #cd261e;
+}
+
+.list-marker {
+	color: #cd261e;
+	font-size: 0.3rem !important;
+	padding: 0 1.5rem 0.3rem 0;
+	vertical-align: middle;
+}
+
+/* IX. Various Elements */
+
+.big-red-button {
+	background: #cd261e;
+	color: #fff;
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 1rem 4rem;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.mid-red-button {
+	background: #cd261e;
+	color: #fff;
+	cursor: pointer;
+	font-size: 0.7rem;
+	padding: 0.55rem 2.1rem;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.single-image_custom-footer {
+	text-align: right;
+}
+
+/* X. Mobile Fixes */
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  { /* iPad P/L */
+
+.hero-image_background {
+	background-attachment: scroll;
+}
+
+}
