@@ -63,6 +63,7 @@ class fpwpcr_theme {
 		wp_enqueue_style( 'wpcr-style', get_stylesheet_uri() );
 		wp_enqueue_style( 'font-awesome', $fpwpcr_dir . '/css/font-awesome.min.css' );
 		wp_enqueue_script( 'rem-enabler', $fpwpcr_dir . '/js/rem.min.js' );
+		wp_enqueue_script( 'wpcr-customjs', $fpwpcr_dir . '/js/wpcr-custom.js' );
 	}
 
 
