@@ -590,6 +590,8 @@ ul {
 
 .button:hover {
 	color: #fff !important;
+	margin: 0px 0.2rem;
+	box-shadow: -0.2rem 0.1rem 0.5rem 0rem #555;
 }
 
 .footer .content-text {
