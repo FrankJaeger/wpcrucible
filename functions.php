@@ -1,12 +1,16 @@
 <?php defined('ABSPATH') or die("No script kiddies please!");	// For security reasons.
 
 require_once('includes/helper-classes.php');	// Include helper classes.
+require_once('includes/shortcodes.php');		// Adds shortcodes.
 
 global $fpwcr_dir;
-$fpwpcr_dir = get_template_directory_uri();		// Get template directory.
+global $fpwpcr_root;
+
+$fpwpcr_dir = get_template_directory_uri();		// Get template directory.						// Get the root of WP.
 
 $fpwpcr_theme = new fpwpcr_theme();			// Create theme object. For now it do nothing.
 $fpwpcr_settings = new fpwpcr_settings();	// Create settings object that creates theme settings page in Appearance section of WP Menu.
+$fpwpcr_plugins = new fpwpcr_plugins();		// Notice user to install required plugins.
 
 /* *** Theme Options Page *** */
 
@@ -20,23 +24,18 @@ $fpwpcr_settings->add_upload( __( 'Hero Image', 'wpcrucible' ), 'wpcr-header-her
 $fpwpcr_settings->add_color( __( 'Header Top Background', 'wpcrucible'), 'wpcr-main-top-header-bg-color', 'wpcr-admin-appearance-section', null, '#f0f0f0' );	// Menu and logo background
 $fpwpcr_settings->add_color( __( 'Backgroung Color', 'wpcrucible' ), 'wpcr-main-background-color', 'wpcr-admin-appearance-section', null, '#ffffff' ); 	// BG color picker.
 $fpwpcr_settings->add_color( __( 'Theme\'s Main Color', 'wpcrucible' ), 'wpcr-main-color', 'wpcr-admin-appearance-section', null, '#cd261e' ); 		// Change main color of theme.
-$fpwpcr_settings->add_checkbox( __( 'Parallax Effect', 'wpcrucible' ), 'wpcr-main-parallax', 'wpcr-admin-appearance-section', null, 0 ); 	// Use parallax ?
-$fpwpcr_settings->add_checkbox( __( 'B/W Header Image', 'wpcrucible' ), 'wpcr-main-bw', 'wpcr-admin-appearance-section', null, 0 ); 	//  Black/white header image ?
- $fpwpcr_settings->add_textarea( __( 'Custom CSS', 'wpcrucible' ), 'wpcr-main-css', 'wpcr-admin-appearance-section', null, '' );				// Place for custom CSS.
+$fpwpcr_settings->add_checkbox( __( 'Parallax Effect', 'wpcrucible' ), 'wpcr-main-parallax', 'wpcr-admin-appearance-section', null, 1 ); 	// Use parallax ?
+$fpwpcr_settings->add_checkbox( __( 'B/W Header Image', 'wpcrucible' ), 'wpcr-main-bw', 'wpcr-admin-appearance-section', null, 1 ); 	//  Black/white header image ?
+$fpwpcr_settings->add_textarea( __( 'Custom CSS', 'wpcrucible' ), 'wpcr-main-css', 'wpcr-admin-appearance-section', null, '' );				// Place for custom CSS.
 
 // //Content
 $fpwpcr_settings->add_range( __( 'Sidebars Count', 'wpcrucible' ), 'wpcr-content-sidebars', 'wpcr-admin-content-section', null, 0, 50, 1 );	// Count of sidebars.
-$fpwpcr_settings->add_range( __( 'Custom Menus Count', 'wpcrucible' ), 'wpcr-content-menus', 'wpcr-admin-content-section', null ,0 , 50, 1 );		// Count of menus.
 
 $fpwpcr_settings->make_my_settings();	// Draw the sections, fields and add default values to options that not exists in the database.
 
 /* *** Theme Content *** */
 
 $fpwpcr_theme->add_sidebars( (int)$fpwpcr_settings->get_value( 'wpcr-content-sidebars' ) );		// Adds as many sidebars as configured in options page.
-
-for ( $i = 0 ; $i < $fpwpcr_settings->get_value( 'wpcr-content-menus' ) ; $i++ ) {
-	$fpwpcr_theme->add_menu( 'wpcr-content-custom-menu-' . $i, __( 'Custom Menu #', 'wpcrucible' ) . ($i+1) );	// Adds as many menus as configured in options page.
-}
 
 $fpwpcr_theme->add_styles_and_scripts();	// Enqueue required scripts.
 $fpwpcr_theme->add_filters();				// Adds required filters.

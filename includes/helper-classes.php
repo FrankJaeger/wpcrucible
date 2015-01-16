@@ -53,12 +53,16 @@ class fpwpcr_theme {
 		}
 
 		add_theme_support('post-thumbnails'); 	// Add thumbnails support.
+		remove_filter('the_content', 'wpautop');	// Disable autoformatting.
+		add_filter( 'widget_text', 'shortcode_unautop');	// Enabling shortcodes in widgets.
+		add_filter( 'widget_text', 'do_shortcode');
 	}
 
 	public function add_styles_and_scripts_callback() { 
 		global $fpwpcr_dir;
 		wp_enqueue_style( 'wpcr-style', get_stylesheet_uri() );
 		wp_enqueue_style( 'font-awesome', $fpwpcr_dir . '/css/font-awesome.min.css' );
+		wp_enqueue_script( 'rem-enabler', $fpwpcr_dir . '/js/rem.min.js' );
 	}
 
 
@@ -154,7 +158,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 	public function get_main_color_css() {		// Return css to change site main color.
 		$color = $this->get_value( 'wpcr-main-color' );
 		if ( !empty( $color ) && ( $color != '#cd261e' ) ) {
-			return sprintf('.content-title, .list-marker, .mid-red-button, .big-red-button, .current_page_item a, a:hover, .hero-image_content-title {color: %1$s !important;}.hr-underline {background: %1$s;color: %1$s;}.header-top_menu .current_page_item {border-bottom: 0.20rem solid %1$s;}.hero-image_content-title_white,.home .hero-image_content-title {color: #fff !important;}',
+			return sprintf('.content-title, .list-marker, .wpcr-main-theme-color, .mid-red-button, .big-red-button, .current_page_item a, a:hover, .hero-image_content-title, .content-title_text, .wpcr-list-item {color: %1$s !important;}.hr-underline {background: %1$s;color: %1$s;}.header-top_menu .current_page_item {border-bottom: 0.20rem solid %1$s;}.hero-image_content-title_white,.home .hero-image_content-title {color: #fff !important;}.button, .wpcf7-submit{color:#fff !important;background:%1$s;} .button:hover{color: #fff !important;}',
 				esc_html($color));
 		}
 	}
@@ -247,7 +251,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'textfields', parent::$config ) ) {			// Adds text fields if defined.
 			foreach ( parent::$config['textfields'] as $textfield ) {
 				$checklist = array();
-				
+				$val = $this->options[$textfield['slug']];
 				if ( parent::is_in_array( $textfield['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
 				} else {
@@ -266,11 +270,11 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$textfield['slug'],
 						$textfield['title'],
-						function() use ( $textfield ) {
+						function() use ( $textfield, $val ) {
 							printf(
 								'<input type="text" id="%1$s" name="fpwpcr-theme-options-values[%1$s]" value="%2$s" class="%3$s wpcr-admin-textfield" />',
 								$textfield['slug'],
-								isset( $this->options[$textfield['slug']] ) ? esc_attr( $this->options[$textfield['slug']] ) : '',
+								isset( $val ) ? esc_attr( $val ) : '',
 								$textfield['class']
 								);
 						},
@@ -292,7 +296,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'textareas', parent::$config ) ) {			// Adds textareas if defined.
 			foreach ( parent::$config['textareas'] as $textarea ) {
 				$checklist = array();
-				
+				$val = $this->options[$textarea['slug']];
 				if ( parent::is_in_array( $textarea['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
 				} else {
@@ -311,11 +315,11 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$textarea['slug'],
 						$textarea['title'],
-						function() use ( $textarea ) {
+						function() use ( $textarea, $val ) {
 							printf(
 								'<textarea id="%1$s" name="fpwpcr-theme-options-values[%1$s]" class="%3$s wpcr-admin-textarea">%2$s</textarea>',
 								$textarea['slug'],
-								isset( $this->options[$textarea['slug']] ) ? esc_attr( $this->options[$textarea['slug']] ) : '',
+								isset( $val ) ? esc_attr( $val ) : '',
 								$textarea['class']
 								);
 						},
@@ -334,7 +338,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'ranges', parent::$config ) ) {			// Adds ranges if defined.
 			foreach ( parent::$config['ranges'] as $range ) {
 				$checklist = array();
-				
+				$val = $this->options[$range['slug']];
 				if ( parent::is_in_array( $range['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
 				} else {
@@ -353,13 +357,13 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$range['slug'],
 						$range['title'],
-						function() use ( $range ) {
+						function() use ( $range, $val ) {
 							$amount_id = 'wpcr_admin_amount_' . str_replace( '-', '_', $range['slug']);
 							printf(
 								'<input type="range" id="%1$s" name="fpwpcr-theme-options-values[%1$s]" class="%3$s wpcr-admin-range" value="%2$s" min="%4$s" max="%5$s" oninput="%6$s.value=this.value" />
 								<output id="%6$s" name="%6$s" for="%1$s" class="wpcr-admin-amount">%2$s</output>',
 								$range['slug'],
-								isset( $this->options[$range['slug']] ) ? esc_attr( $this->options[$range['slug']] ) : '',
+								isset( $val ) ? esc_attr( $val ) : '',
 								$range['class'],
 								$range['min'],
 								$range['max'],
@@ -381,7 +385,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'numbers', parent::$config ) ) {			// Adds numbers if defined.
 			foreach ( parent::$config['numbers'] as $number ) {
 				$checklist = array();
-				
+				$val = $this->options[$number['slug']];
 				if ( parent::is_in_array( $number['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
 				} else {
@@ -400,11 +404,11 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$number['slug'],
 						$number['title'],
-						function() use ( $number ) {
+						function() use ( $number, $val ) {
 							printf(
 								'<input type="number" id="%1$s" name="fpwpcr-theme-options-values[%1$s]" class="%3$s wpcr-admin-number" value="%2$s" min="%4$s" max="%5$s" />',
 								$number['slug'],
-								isset( $this->options[$number['slug']] ) ? esc_attr( $this->options[$number['slug']] ) : '',
+								isset( $val ) ? esc_attr( $val ) : '',
 								$number['class'],
 								$number['min'],
 								$number['max']
@@ -424,7 +428,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'colors', parent::$config ) ) {			// Adds colors if defined.
 			foreach ( parent::$config['colors'] as $color ) {
 				$checklist = array();
-				
+				$val = $this->options[$color['slug']];
 				if ( parent::is_in_array( $color['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
 				} else {
@@ -443,11 +447,11 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$color['slug'],
 						$color['title'],
-						function() use ( $color ) {
+						function() use ( $color, $val ) {
 							printf(
 								'<input type="color" id="%1$s" name="fpwpcr-theme-options-values[%1$s]" value="%2$s" class="%3$s wpcr-admin-color" />',
 								$color['slug'],
-								isset( $this->options[$color['slug']] ) ? esc_attr( $this->options[$color['slug']] ) : '',
+								isset( $val ) ? esc_attr( $val ) : '',
 								$color['class']
 								);
 						},
@@ -467,6 +471,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'uploads', parent::$config ) ) {			// Adds uploads if defined.
 			foreach ( parent::$config['uploads'] as $upload ) {
 				$checklist = array();
+				$val = $this->options[$upload['slug']];
 				
 				if ( parent::is_in_array( $upload['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
@@ -486,7 +491,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$upload['slug'],
 						$upload['title'],
-						function() use ( $upload ) {
+						function() use ( $upload, $val ) {
 							printf(
 								'<label class="%3s_label wpcr-admin-upload_label" for="%1$s">
 								<input type="text" id="%1$s" name="fpwpcr-theme-options-values[%1$s]" value="%2$s" class="%3$s wpcr-admin-upload_textfield" />
@@ -494,7 +499,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 								<br />Enter URL or upload a file.
 								</label>',
 								$upload['slug'],
-								isset( $this->options[$upload['slug']] ) ? esc_attr( $this->options[$upload['slug']] ) : '',
+								isset( $val ) ? esc_attr( $val ) : '',
 								$upload['class']
 								);
 						},
@@ -512,7 +517,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 		if ( array_key_exists( 'checkboxs', parent::$config ) ) {			// Adds checkboxs if defined.
 			foreach ( parent::$config['checkboxs'] as $checkbox ) {
 				$checklist = array();
-				
+				$val =isset( $this->options[$checkbox['slug']] ) ? $this->options[$checkbox['slug']] : 0;
 				if ( parent::is_in_array( $checkbox['section-slug'], parent::$config['sections'] ) ) {		// Check if section exists and prints error if not.
 					$checklist[] = true;
 				} else {
@@ -531,8 +536,8 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 					add_settings_field(
 						$checkbox['slug'],
 						$checkbox['title'],
-						function() use ( $checkbox ) {
-							$checked = isset( $this->options[$checkbox['slug']] ) ? $this->options[$checkbox['slug']] : 1;
+						function() use ( $checkbox, $val ) {
+							$checked = isset( $val ) ? $val : 1;
 							printf(
 								'<input type="checkbox" id="%1$s" name="fpwpcr-theme-options-values[%1$s]" value="1" class="%2$s wpcr-admin-checkbox" '. checked( 1, $checked, false ) .' />',
 								$checkbox['slug'],
@@ -581,6 +586,9 @@ class fpwpcr_metaboxes {
 			'wpcr-admin-page-metabox-header' => array(
 				'wpcr-admin-page-metabox-header-title',
 				'wpcr-admin-page-metabox-header-subtitle'
+				),
+			'wpcr-admin-page-metabox-bottom' => array(
+				'wpcr_admin_page_metabox_bottom_wpeditor'	// Underscores for compatibility reasons.
 				)
 			);
 
@@ -591,15 +599,16 @@ class fpwpcr_metaboxes {
 	}
 
 	public function add_metaboxes() {
+		$sb_c = $this->sb_count;
 		$metaboxes = array(									// Array of metaboxes and its configurations.
 			'wpcr-admin-page-metabox-sidebar' => array(
 				__( 'Sidebar' ),
-				function( $post ) {							// Metabox Callback.
+				function( $post ) use ( $sb_c ) {							// Metabox Callback.
 					$select_items = '';
 					$selected_item = get_post_meta( $post->ID, 'wpcr-admin-page-metabox-sidebar-number', true );	// Get actual value if exists.
 					wp_nonce_field( 'wpcr-admin-page-metabox-sidebar', 'wpcr-admin-page-metabox-sidebar-nonce' );	// Adds nonce ( it must be defined! ).
 
-					for ( $i = 1 ; $i <= $this->sb_count ; $i++ ) {													// Print the select options depends on sidebars count.
+					for ( $i = 1 ; $i <= $sb_c ; $i++ ) {													// Print the select options depends on sidebars count.
 						$select_items .= sprintf('<option %s value="%d">' . __( 'Sidebar %d' ) . '</option>',
 							( $selected_item == $i ) ? 'selected' : '',												// Adds selected attribute if values of item and stored in database match each other.
 							$i, 
@@ -649,7 +658,21 @@ class fpwpcr_metaboxes {
 				'normal',
 				'high',
 				null
-				)
+				),
+				'wpcr-admin-page-metabox-bottom' => array(
+					__( 'Bottom Content', 'wpcrucible' ),
+					function( $post ) {
+						wp_nonce_field( 'wpcr-admin-page-metabox-bottom', 'wpcr-admin-page-metabox-bottom-nonce' );
+						$params = array(
+							'textarea_name' => 'wpcr_admin_page_metabox_bottom_wpeditor' 
+							);
+						wp_editor( get_post_meta( $post->ID, 'wpcr_admin_page_metabox_bottom_wpeditor', true ), 'wpcr_admin_page_metabox_bottom_wpeditor', $params );
+					},
+					'page',
+					'normal',
+					'high',
+					null
+					)
 			);
 
 		foreach( $metaboxes as $metabox_id => $metabox ) {
@@ -680,6 +703,151 @@ class fpwpcr_metaboxes {
 		}
 	}
 
+
+}
+
+class fpwpcr_plugins {
+
+	public function __construct() {
+		require_once('class-tgm-plugin-activation.php');	// Needed for the automate Contact Forms 7 downloading.
+		add_action( 'tgmpa_register', array( &$this, 'register_required_plugins' ) );
+
+		$cond = get_option( 'fpwpcr_restricted_cf_added' );
+
+	if ( !$cond ) {
+
+		$form = '<div class="wpcr-download-form-container">
+<table class="wpcr-download-form">
+<tr>
+<td>
+<p>Name <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [text* name] </p>
+</td>
+<td>
+<p>Email <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [email* email] </p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Position <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [text* position] </p>
+</td>
+<td>
+<p>Company <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [text* company] </p>
+</td>
+</tr>
+</table>
+
+<p>[submit "Submit"]</p>
+</div>';
+
+		$ad_settings = 'on_sent_ok: "jQuery(\'.wpcf7\').hide();fpwpcr_get_rc_data();jQuery(\'.wpcf7\').show(500);"';
+
+		$cf = array(
+			'post_content' => '<div class="wpcr-download-form-container">
+<table class="wpcr-download-form">
+<tr>
+<td>
+<p>Name <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [text* name] </p>
+</td>
+<td>
+<p>Email <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [email* email] </p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Position <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [text* position] </p>
+</td>
+<td>
+<p>Company <span class="wpcr-main-theme-color wpcr-req-star">*</span><br />
+    [text* company] </p>
+</td>
+</tr>
+</table>
+
+<p>[submit "Submit"]</p>
+</div>
+I\'ve downloaded your files!
+[name] from [company]
+From: [name] <email]> from [company] company.
+
+name: [name]
+email: [email]
+position: [position]
+company: [company]
+admin@wpcrucible.com
+Reply-To: [email]
+
+
+
+
+[your-subject]
+Crucible Demo <admin@wpcrucible.com>
+Message Body:
+[your-message]
+
+--
+This e-mail was sent from a contact form on Crucible Demo (http://wpcrucible.com)
+[your-email]
+Reply-To: admin@wpcrucible.com
+
+
+
+Your message was sent successfully. Thanks.
+Failed to send your message. Please try later or contact the administrator by another method.
+Validation errors occurred. Please confirm the fields and submit it again.
+Failed to send your message. Please try later or contact the administrator by another method.
+Please accept the terms to proceed.
+Please fill the required field.
+Your entered code is incorrect.
+Number format seems invalid.
+This number is too small.
+This number is too large.
+Email address seems invalid.
+URL seems invalid.
+Telephone number seems invalid.
+Your answer is not correct.
+Date format seems invalid.
+This date is too early.
+This date is too late.
+Failed to upload file.
+This file type is not allowed.
+This file is too large.
+Failed to upload file. Error occurred.
+on_sent_ok: "jQuery(\'.wpcf7\').hide();fpwpcr_get_rc_data();jQuery(\'.wpcf7\').show(500);"',
+			'post_title' => 'Download Form',
+			'post_status' => 'publish',
+			'post_name'	=> 'download-form1',
+			'post_type' => 'wpcf7_contact_form',
+			'comment_status' => 'open'
+ 			);
+
+			$id = wp_insert_post( $cf ); ;
+
+			update_post_meta( $id, '_form', $form );
+			update_post_meta( $id, '_additional_settings', $ad_settings );
+			update_option( 'fpwpcr_restricted_cf_added', $id );
+		}
+	}
+
+	public function register_required_plugins() {
+		$plugins = array(
+			array(
+				'name' 		=> 'Contact Form 7',
+				'slug' 		=> 'contact-form-7',
+				'required' 	=> true
+				)
+			);
+
+		$theme_text_domain = 'wpcrucible';
+
+		tgmpa( $plugins );
+	}
 
 }
 

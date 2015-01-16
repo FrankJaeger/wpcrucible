@@ -35,7 +35,7 @@
  	/* Page Sidebar Metabox Support */
 
  	var selected,
-    metabox = $( '#wpcr-admin-page-metabox-sidebar' ),	// Metabox object.
+    metabox = $( '#wpcr-admin-page-metabox-sidebar, #wpcr-admin-page-metabox-bottom' ),	// Metabox object.
     template_selector = $( '#page_template' );			// Template select object.
   
 	( template_selector.val() == 'page-sidebar.php' ) ? metabox.show() : metabox.hide();  // Show or Hide metabox at page loads.

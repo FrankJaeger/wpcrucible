@@ -4,7 +4,7 @@ Theme URI: /
 Author: Przemysław Foluszczyk
 Author URI: /
 Description: Simple and clean corporate WordPress theme.
-Version: 0.1
+Version: 1.7
 License: GNU General Public License
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: corporate, red, clean, simple, fullwidth, business
@@ -25,7 +25,11 @@ Text Domain: wpcrucible
 }
 
 body {
+	color: #1f1a17;
 	display: table;
+	font-family: 'Raleway', sans-serif;
+	font-size: 0.9rem;
+	font-weight: 100;
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -33,6 +37,28 @@ body {
 
 html {
 	font-size: 20px;
+}
+
+a {
+	color: #960d14;
+	position: relative;
+	text-decoration: none;
+	z-index: 999;
+}
+
+i {
+	font-family: "Palatino", serif;
+	font-weight: 100;
+	font-size: 1rem;
+}
+
+p {
+	margin-top: 0;
+	max-width: 65rem;
+}
+
+ul {
+	padding-left: 0;
 }
 
 /* I. Header */
@@ -234,15 +260,11 @@ html {
 	margin: 0 auto;
 }
 
-.content-custom_title {
-	font-size: 1.5rem;
-}
-
 .content-description {
 	color: #1f1a17;
 	font-size: 1.8rem;
 	font-weight: 500;
-	margin: 0.625rem 0;
+	margin: 0 0 0.625rem 0;
 	text-transform: uppercase;
 }
 
@@ -268,22 +290,26 @@ html {
 	height: 30.5rem;
 }
 
-.content-text {
+.content p, .content-text {
 	font-size: 0.9rem;
-	font-weight: 300;
+	font-weight: 100;
 	line-height: 2;
-	padding: 0.4rem 0.5rem;
 }
 
 .content-title {
-	color: #cd261e;
-	font-size: 1.2rem;
-	font-weight: 500;
 	margin: 0 0 0.625rem 0;
 	text-transform: uppercase;
 }
 
+
+.content-title_big .content-title_text {
+	font-size: 1.5rem;
+}
+
 .content-title_text {
+	color: #cd261e;
+	font-size: 1.2rem !important;
+	font-weight: 500 !important;
 	padding: 0;
 	margin: 0;
 }
@@ -293,7 +319,7 @@ html {
 .sections {
 	display: table;
 	margin: 0 auto;
-	width: 65rem;
+	width: 100%;
 }
 
 .sections-block {
@@ -320,7 +346,7 @@ html {
 }
 
 .section-lsb_content {
-	padding: 0 0 0 4rem;
+	padding: 0 11rem 0 4rem;
 	width: 80%;
 	height:10rem;
 }
@@ -488,11 +514,13 @@ html {
 
 /* IX. Various Elements */
 
-.big-red-button {
+.big-red-button, .wpcf7-submit {
 	background: #cd261e;
+	border: none;
 	color: #fff;
 	cursor: pointer;
 	font-size: 1rem;
+	font-weight: 300;
 	padding: 1rem 4rem;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -512,7 +540,63 @@ html {
 	text-align: right;
 }
 
-/* X. Mobile Fixes */
+.wpcr-main-theme-color {
+	color: #cd261e;
+}
+
+.wpcr-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+.wpcr-list-item {
+	color: #cd261e;
+	font-size: 0.65rem;
+	font-weight: 300;
+	line-height: 2;
+	list-style: square;
+	margin-left: 1rem;
+	padding-left: 0.9rem;
+}
+
+.wpcr-list-item-text {
+	color: #1f1a17;
+	font-size: 0.9rem;
+}
+
+.wpcr-req-star {
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+.wpcf7-text {
+	background: #f2f3f4;	
+	border: 0.09rem solid #d1d2d4;
+	border-radius: 0.25rem;
+	color: #333;
+	font-size: 1.3rem;
+	font-weight: 300;
+	height: 2.5rem;
+	margin-right: 0.9rem;
+	padding: 0 0.3rem;
+	width: 14rem;
+}
+
+.wpcf7-submit {
+	margin-top: 1.5rem;
+}
+
+/* X. Fixes */
+
+.button:hover {
+	color: #fff !important;
+}
+
+.footer .content-text {
+	padding-left: 0.5rem;
+}
+
+/* XI. Mobile Fixes */
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  { /* iPad P/L */
 
