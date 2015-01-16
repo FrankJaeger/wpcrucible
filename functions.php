@@ -15,7 +15,7 @@ $fpwpcr_plugins = new fpwpcr_plugins();		// Notice user to install required plug
 /* *** Theme Options Page *** */
 
 $fpwpcr_settings->add_section( __( 'Appearance', 'wpcrucible') , 'wpcr-admin-appearance-section', __( 'Here you can change the appearance of your site.', 'wpcrucible' ) );		// Adds appearance section of theme options page.
-$fpwpcr_settings->add_section( __( 'Content', 'wpcrucible' ), 'wpcr-admin-content-section', __( 'Set as many sidebars and menus as you need. Too many of them can cause performance drop.' ) );		// Adds content section of theme options page.
+$fpwpcr_settings->add_section( __( 'Content', 'wpcrucible' ), 'wpcr-admin-content-section', __( 'Set as many sidebars you need. Too many of them may cause performance drop.' ) );		// Adds content section of theme options page.
 
 // Appearance
 $fpwpcr_settings->add_upload( __( 'Header Logo', 'wpcrucible' ), 'wpcr-header-logo', 'wpcr-admin-appearance-section', null, $fpwpcr_dir . '/images/logo.png' );		 		// Header logo upload field.

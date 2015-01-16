@@ -1,21 +1,466 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Crucible\n"
-"POT-Creation-Date: 2015-01-14 05:42+0100\n"
-"PO-Revision-Date: 2015-01-14 05:42+0100\n"
+"POT-Creation-Date: 2015-01-16 06:04+0100\n"
+"PO-Revision-Date: 2015-01-16 06:04+0100\n"
 "Last-Translator: \n"
-"Language-Team: Foluszczyk Przemysław <p_foluszczyk@hotmail.com>\n"
+"Language-Team: \n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.3\n"
-"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Poedit-KeywordsList: __();_e();__ngettext();_n();__ngettext_noop();"
-"_n_noop();_x();_nx();_nx_noop();_ex();esc_attr__();esc_attr_e();esc_attr_x();"
-"esc_html__();esc_html_e();esc_html_x();_c();_nc()\n"
-"X-Poedit-SearchPath-0: ..\n"
-"X-Poedit-SearchPath-1: .\n"
-"X-Poedit-SearchPath-2: ...\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: functions.php:17
+msgid "Appearance"
+msgstr "Wygląd"
+
+#: functions.php:17
+msgid "Here you can change the appearance of your site."
+msgstr "Tutaj możesz zmienić wygląd witryny."
+
+#: functions.php:18
+msgid "Content"
+msgstr "Treść"
+
+#: functions.php:18
+msgid ""
+"Set as many sidebars you need. Too many of them may cause performance drop."
+msgstr ""
+"Ustaw tyle paneli bocznych ile potrzebujesz. Zbyt duża ich liczba może "
+"doprowadzić do spadku wydajności."
+
+#: functions.php:21
+msgid "Header Logo"
+msgstr "Logo główne"
+
+#: functions.php:22
+msgid "Footer Logo"
+msgstr "Logo w stopce"
+
+#: functions.php:23
+msgid "Hero Image"
+msgstr "Tło \"Hero-Image\""
+
+#: functions.php:24
+msgid "Header Top Background"
+msgstr "Tło górnego menu"
+
+#: functions.php:25
+msgid "Backgroung Color"
+msgstr "Tło"
+
+#: functions.php:26
+msgid "Theme's Main Color"
+msgstr "Główny kolor motywu"
+
+#: functions.php:27
+msgid "Parallax Effect"
+msgstr "Efekt paralaksy"
+
+#: functions.php:28
+msgid "B/W Header Image"
+msgstr "Czarno-białe tła nagłówków"
+
+#: functions.php:29
+msgid "Custom CSS"
+msgstr "Własny CSS"
+
+#: functions.php:32
+msgid "Sidebars Count"
+msgstr "Liczba paneli bocznych"
+
+#: home.php:11
+msgid "Read more..."
+msgstr "Czytaj dalej..."
+
+#: includes/class-tgm-plugin-activation.php:161
+msgid "Install Required Plugins"
+msgstr "Instaluj wymagane wtyczki"
+
+#: includes/class-tgm-plugin-activation.php:162
+msgid "Install Plugins"
+msgstr "Instaluj wtyczki"
+
+#: includes/class-tgm-plugin-activation.php:163
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr "Instaluję wtyczkę: %s"
+
+#: includes/class-tgm-plugin-activation.php:164
+msgid "Something went wrong."
+msgstr "Coś się nie udało"
+
+#: includes/class-tgm-plugin-activation.php:165
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] "Ten motyw wymaga następujących wtyczek: %1$s"
+msgstr[2] "Ten motyw wymaga następujących wtyczek: %1$s"
+
+#: includes/class-tgm-plugin-activation.php:166
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:167
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to install the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"installed."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to install the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins installed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:168
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:169
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:170
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugin. Contact the administrator of this site for help on getting the "
+"plugin activated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins activated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:171
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:172
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"updated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to update the %s plugins. "
+"Contact the administrator of this site for help on getting the plugins "
+"updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:173
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:174
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:175
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:176
+msgid "Return to the dashboard"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:177
+#: includes/class-tgm-plugin-activation.php:1939
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:178
+#: includes/class-tgm-plugin-activation.php:1630
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-tgm-plugin-activation.php:179
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:180
+msgid "Dismiss this notice"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:531
+#: includes/class-tgm-plugin-activation.php:2156
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1166
+msgid "Private Repository"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1169
+msgid "Pre-Packaged"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1174
+msgid "WordPress Repository"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1177
+msgid "Required"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1177
+msgid "Recommended"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1180
+msgid "Not Installed"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1182
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1287
+#: includes/class-tgm-plugin-activation.php:1395
+msgid "Install"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1309
+#: includes/class-tgm-plugin-activation.php:1396
+msgid "Activate"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1358
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1374
+msgid "Plugin"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1375
+msgid "Source"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1376
+msgid "Type"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1377
+msgid "Status"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1922
+msgid "Install package not available."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1923
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1924
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1925
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1926
+msgid "Plugin install failed."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1927
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:1938
+msgid "Plugin activation failed."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2052
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2053
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2053
+#: includes/class-tgm-plugin-activation.php:2062
+msgid "Show Details"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2053
+#: includes/class-tgm-plugin-activation.php:2062
+msgid "Hide Details"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2054
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2055
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2059
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2060
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2061
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2062
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2063
+msgid "All installations have been completed."
+msgstr ""
+
+#: includes/class-tgm-plugin-activation.php:2064
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: includes/helper-classes.php:44
+msgid "Primary Header Menu"
+msgstr "Menu główne"
+
+#: includes/helper-classes.php:195
+msgid "WP Crucible, Theme options"
+msgstr "WP Crucible, Ustawienia motywu"
+
+#: includes/helper-classes.php:196
+msgid "Theme Options"
+msgstr "Ustawienia motywu"
+
+#: includes/helper-classes.php:206
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nie masz wystarczających uprawnień do przeglądania tej strony."
+
+#: includes/helper-classes.php:213
+msgid "WP Crucible Theme Options"
+msgstr "Ustawienia motywu  WP Crucible"
+
+#: includes/helper-classes.php:258
+msgid "[ Error ] add_text_field@"
+msgstr ""
+
+#: includes/helper-classes.php:258 includes/helper-classes.php:303
+#: includes/helper-classes.php:345 includes/helper-classes.php:392
+#: includes/helper-classes.php:435 includes/helper-classes.php:479
+#: includes/helper-classes.php:524
+msgid ""
+": Setings section not found. Settings section must be defined before adding "
+"any field! Check add_section() method."
+msgstr ""
+
+#: includes/helper-classes.php:303
+msgid "[ Error ] add_textarea@"
+msgstr ""
+
+#: includes/helper-classes.php:345
+msgid "[ Error ] add_range@"
+msgstr ""
+
+#: includes/helper-classes.php:392
+msgid "[ Error ] add_number@"
+msgstr ""
+
+#: includes/helper-classes.php:435
+msgid "[ Error ] add_color@"
+msgstr ""
+
+#: includes/helper-classes.php:479
+msgid "[ Error ] add_upload@"
+msgstr ""
+
+#: includes/helper-classes.php:498
+msgid "Open Uploader"
+msgstr "Otwórz Uploader"
+
+#: includes/helper-classes.php:524
+msgid "[ Error ] add_checkbox@"
+msgstr ""
+
+#: includes/helper-classes.php:605
+msgid "Sidebar"
+msgstr "Panel boczny"
+
+#: includes/helper-classes.php:612
+#, php-format
+msgid "Sidebar %d"
+msgstr "Panel boczny %d"
+
+#: includes/helper-classes.php:629
+msgid "Header Content"
+msgstr "Nagłówek"
+
+#: includes/helper-classes.php:652
+msgid "Header Title"
+msgstr "Tytuł"
+
+#: includes/helper-classes.php:653
+msgid "Header Subtitle"
+msgstr "Podtytuł"
+
+#: includes/helper-classes.php:663
+msgid "Bottom Content"
+msgstr ""
+
+#~ msgid ""
+#~ "Set as many sidebars and menus as you need. Too many of them can cause "
+#~ "performance drop."
+#~ msgstr "Ustaw tyle "
