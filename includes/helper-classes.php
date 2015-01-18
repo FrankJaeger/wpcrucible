@@ -159,7 +159,7 @@ class fpwpcr_settings extends fpwpcr_theme {					// Extends theme class by setti
 	public function get_main_color_css() {		// Return css to change site main color.
 		$color = $this->get_value( 'wpcr-main-color' );
 		if ( !empty( $color ) && ( $color != '#cd261e' ) ) {
-			return sprintf('.content-title, .list-marker, .wpcr-main-theme-color, .mid-red-button, .big-red-button, .current_page_item a, a:hover, .hero-image_content-title, .content-title_text, .wpcr-list-item {color: %1$s !important;}.hr-underline {background: %1$s;color: %1$s;}.header-top_menu .current_page_item {border-bottom: 0.20rem solid %1$s;}.hero-image_content-title_white,.home .hero-image_content-title {color: #fff !important;}.button, .wpcf7-submit{color:#fff !important;background:%1$s;} .button:hover{color: #fff !important;}',
+			return sprintf('.content-title, .list-marker, .wpcr-main-theme-color, .mid-red-button, .big-red-button, .current_page_item a, a:hover, .hero-image_content-title, .content-title_text, .wpcr-list-item {color: %1$s !important;}.hr-underline {background: %1$s;color: %1$s;}.header-top_menu .current_page_item {border-bottom: 0.20rem solid %1$s;}.hero-image_content-title_white,.home .hero-image_content-title {color: #fff !important;}.button, .wpcf7-submit{color:#fff !important;background:%1$s;} .button:hover, .wpcf7-submit:hover{color: #fff !important; box-shadow: 0 0 0 0.05rem %1$s;}',
 				esc_html($color));
 		}
 	}
